@@ -34,11 +34,9 @@
     }
 
     vEnde = vStartkapital - vZinsen;
-
     vAusgabe = vAusgabe + "</table> <br>";
-
-    document.getElementById("vAusgabe").innerHTML = ausgabe;
-    document.getElementById("vEnde").innerHTML = "Das Endkapital beträgt bei einer Laufzeit von " + vLaufzeit + " Jahren und einem Zinssatz von " + vZinssatz + "% = " + vEnde.toFixed(2) + "€.";
+    document.getElementById("vAusgabe").innerHTML=vAusgabe;
+    document.getElementById("vEnde").innerHTML="Das Endkapital beträgt bei einer Laufzeit von " + vLaufzeit + " Jahren und einem Zinssatz von " + vZinssatz + "% = " + vEnde.toFixed(2) + "€.";
 
 }
 
