@@ -13,17 +13,16 @@
           
           function fRechner() {
                var vZinssatz = parseFloat(document.getElementById("idZinssatz").value);
-               var vNachschüssigeRente = parseFloat(document.getElementById("idNachschüssigeRente).value);
+               var vRente = parseFloat(document.getElementById("idRente).value);
                var vLaufzeit = parseFloat(document.getElementById("idLaufzeit").value);
                
                var vZinsfaktor = 1 + vZinssatz / 100;
-               var vRentenendwert = vNachschüssigeRente * (Math.pow(vZinsfaktor, vLaufzeit) - 1)/(vZinsfaktor - 1);
+               var vRentenendwert = vRente * (Math.pow(vZinsfaktor, vLaufzeit) - 1)/(vZinsfaktor - 1);
             
                var vZinsen;
-               var vKapitalJahresEnde;
                
                var vJahr = 0;
-               var vKapitalJahresAnfang = vNachschüssigeRente;
+               var vRentenbarwert = vRente;
 
                var vAusgabe = "";
                vAusgabe = vAusgabe + "Der Rentenendwert beträgt " + fEuro(vRentenendwert) + ".<br><br>";
@@ -32,15 +31,15 @@
                vAusgabe = vAusgabe + "<tr><th>Jahr</th><th>Kapital am 1.1.</th><th>Zinsen am 31.12.</th><th>Rente am 31.12.</th><th>Kapital am 31.12.</th></tr>";
 
                while (vJahr <= vLaufzeit) {
-                    vZinsen = vKapitalJahresAnfang * (vZinssatz / 100);
-                    vKapitalJahresEnde = vKapitalJahresAnfang + vZinsen;
+                    vZinsen = vRentenbarwert * (vZinssatz / 100);
+                    vRentenendwert = vRentenbarwert + vZinsen;
                     
                     if (vJahr == vLaufzeit) {
-                         vAusgabe = vAusgabe + "<tr><td>" + vJahr + "</td><td>" + fEuro(vKapitalJahresAnfang) + "</td><td>egal</td><td>egal</td></tr>";
+                         vAusgabe = vAusgabe + "<tr><td>" + vJahr + "</td><td>" + fEuro(vRentenbarwert) + "</td><td>egal</td><td>egal</td><td>egal</td></tr>";
                     } else {
-                         vAusgabe = vAusgabe + "<tr><td>" + vJahr + "</td><td>" + fEuro(vKapitalJahresAnfang) + "</td><td>" + fEuro(vZinsen) + "</td><td>" + fEuro(vKapitalJahresEnde) + "</td></tr>";
+                         vAusgabe = vAusgabe + "<tr><td>" + vJahr + "</td><td>" + fEuro(vRentenbarwert) + "</td><td>" + fEuro(vZinsen) + "</td><td>" + vRente + "</td><td>" + fEuro(vRentenendwert) + "</td></tr>";
                     }
-                    vKapitalJahresAnfang = vKapitalJahresEnde;
+                    vRentenbarwert = vRentenendwert;
                     vJahr = vJahr+1;
                }
 
@@ -55,7 +54,7 @@
     <h1>Nachschüssiger Rentenendwertrechner</h1>
 
     Zinssatz: <input id="idZinssatz" type="text" value="2">%<br>
-    Startkapital: <input id="idStartkapital" type="text" value="1000">€<br>
+    Nachschüssige Rente: <input id="idRente" type="text" value="1000">€<br>
     Laufzeit: <input id="idLaufzeit" type="text" value="5"> Jahre<br><br>
 
     <button onClick="fRechner()">Berechnen</button><br><br>
